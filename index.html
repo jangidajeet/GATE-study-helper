@@ -3,179 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJEET GATE ELITE</title>
+    <title>AJEET ELITE</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            --bg: #020617;
-            --glass: rgba(15, 23, 42, 0.8);
-            --accent: #22d3ee;
-            --text: #f8fafc;
-            --gradient: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
-        }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            margin: 0; padding: 15px;
-            background-image: radial-gradient(circle at top right, #1e1b4b, #020617);
-            min-height: 100vh;
-        }
-        .header { text-align: center; padding: 15px 0; }
-        .branding { 
-            font-size: 34px; font-weight: 800; 
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-        .quote-box { 
-            background: var(--glass); backdrop-filter: blur(12px);
-            padding: 15px; border-radius: 16px; margin-bottom: 20px; 
-            border: 1px solid rgba(255,255,255,0.05); text-align: center;
-            font-weight: 500; color: #94a3b8; font-size: 14px;
-        }
-        .card { 
-            background: var(--glass); backdrop-filter: blur(12px);
-            padding: 20px; border-radius: 24px; margin-bottom: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-        }
-        h2 { font-size: 16px; margin-top: 0; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        :root { --bg: #020617; --card: #1e293b; --accent: #0ea5e9; --text: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
+        .branding { font-size: 28px; font-weight: 800; color: var(--accent); text-align: center; margin-top: 10px; }
+        .card { background: var(--card); padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        h2 { font-size: 16px; margin: 0 0 15px 0; border-left: 4px solid var(--accent); padding-left: 10px; }
         
-        .chart-container { position: relative; height: 180px; width: 100%; margin-bottom: 10px; }
+        /* Subject List */
+        .subject-grid { display: grid; gap: 8px; margin-bottom: 15px; }
+        .subject-row { display: flex; justify-content: space-between; background: #0f172a; padding: 12px; border-radius: 10px; align-items: center; }
+        .chk { width: 22px; height: 22px; cursor: pointer; accent-color: var(--accent); }
         
-        .counter-row { display: flex; justify-content: space-around; align-items: center; margin: 10px 0; }
-        .btn-round { 
-            width: 55px; height: 55px; border-radius: 18px; border: none; 
-            font-size: 28px; cursor: pointer; color: white; background: rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s;
-        }
-        .btn-round:active { transform: scale(0.9); background: var(--accent); color: var(--bg); }
-        .val { font-size: 42px; font-weight: 800; text-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
-
-        input { 
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #334155;
-            background: #0f172a; color: white; margin: 10px 0; box-sizing: border-box; font-family: 'Inter';
-        }
-        .save-btn { 
-            width: 100%; padding: 16px; border-radius: 14px; border: none;
-            background: var(--gradient); color: #020617; font-weight: 800; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
+        canvas { width: 100% !important; height: 200px !important; }
+        .btn { background: var(--accent); border: none; padding: 12px; border-radius: 10px; color: white; font-weight: bold; width: 100%; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="branding">AJEET ELITE EE</div>
-        <div style="font-size: 13px; color: #94a3b8; font-weight: 600;">Mission: GATE AIR 1 ⚡</div>
-    </div>
-
-    <div class="quote-box" id="dailyQuote">Loading Ajeet's Motivation... 🚀</div>
+    <div class="branding">AJIT ELITE EE 2026</div>
+    <p style="text-align: center; font-size: 12px; opacity: 0.6;">"Hard work beats talent when talent doesn't work hard." ⚡</p>
 
     <div class="card">
-        <h2>Syllabus Coverage</h2>
-        <div class="chart-container">
-            <canvas id="syllabusPie"></canvas>
-        </div>
-        <div style="text-align: center; font-size: 11px; color: #64748b;">Update data in code to track progress</div>
+        <h2>Subject Progress (Bar Chart)</h2>
+        <canvas id="barChart"></canvas>
     </div>
 
     <div class="card">
-        <h2>Daily Momentum 🔥</h2>
-        <div class="counter-row">
-            <button class="btn-round" onclick="updatePyq(-1)">−</button>
-            <div class="val" id="pyqVal">0</div>
-            <button class="btn-round" onclick="updatePyq(1)">+</button>
-        </div>
-        <div style="text-align: center; font-size: 14px; color: #64748b; font-weight: 600;">PYQs Solved Today</div>
+        <h2>EE Core Subjects</h2>
+        <div class="subject-grid" id="subjectGrid">
+            </div>
     </div>
 
     <div class="card">
-        <h2>Mock Test Performance</h2>
-        <div class="chart-container">
-            <canvas id="performanceLine"></canvas>
+        <h2>Mock Performance (Line Diagram)</h2>
+        <canvas id="lineChart"></canvas>
+        <div style="display:flex; gap:5px; margin-top:10px;">
+            <input type="number" id="scoreInput" placeholder="Enter Score" style="flex:1; padding:10px; border-radius:8px; border:none;">
+            <button onclick="addMock()" style="padding:10px 20px; background:var(--accent); border:none; border-radius:8px; color:white; font-weight:bold;">LOG</button>
         </div>
-        <input type="number" id="newScore" placeholder="Enter Test Score">
-        <button class="save-btn" onclick="addScore()">Log Test Result 🚀</button>
     </div>
 
     <script>
-        // Quotes with Ajeet's Branding
-        const quotes = [
-            "Ajeet, if it was easy, everyone would be an Engineer. ⚡",
-            "Syllabus: Huge. Ajeet's Will: Bigger. Let's go! 🏗️",
-            "Focus on the process, AIR 1 is the side effect. 🎯",
-            "Electrical Machines fear Ajeet. Keep studying! 🔌🌀",
-            "Consistency > Intensity. Show up every day, Ajeet. 📈"
-        ];
-        document.getElementById('dailyQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+        const subs = ["Circuits", "Machines", "Power Sys", "Signals", "Control", "EMF", "Analog", "Maths"];
+        let status = [0, 0, 0, 0, 0, 0, 0, 0];
+        let mockScores = [0];
 
-        // PYQ Logic
-        let pyqCount = 0;
-        function updatePyq(v) { 
-            pyqCount = Math.max(0, pyqCount + v); 
-            document.getElementById('pyqVal').innerText = pyqCount; 
+        // Load Subject Details
+        const grid = document.getElementById('subjectGrid');
+        subs.forEach((s, i) => {
+            grid.innerHTML += `
+                <div class="subject-row">
+                    <span>${s}</span>
+                    <input type="checkbox" class="chk" onchange="toggleSub(${i})">
+                </div>`;
+        });
+
+        // Initialize Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const bChart = new Chart(barCtx, {
+            type: 'bar',
+            data: { labels: subs, datasets: [{ label: 'Completed', data: status, backgroundColor: '#0ea5e9' }] },
+            options: { scales: { y: { max: 1, ticks: { display: false } } }, plugins: { legend: { display: false } } }
+        });
+
+        // Initialize Line Diagram
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        const lChart = new Chart(lineCtx, {
+            type: 'line',
+            data: { labels: ['Start'], datasets: [{ label: 'Score', data: mockScores, borderColor: '#0ea5e9', tension: 0.4 }] },
+            options: { plugins: { legend: { display: false } } }
+        });
+
+        function toggleSub(i) {
+            status[i] = status[i] === 0 ? 1 : 0;
+            bChart.data.datasets[0].data = status;
+            bChart.update();
         }
 
-        // --- CHARTS ---
-        
-        // 1. PIE CHART (Syllabus)
-        const pieCtx = document.getElementById('syllabusPie').getContext('2d');
-        const syllabusChart = new Chart(pieCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Done', 'Left'],
-                datasets: [{
-                    data: [40, 60], 
-                    backgroundColor: ['#22d3ee', '#1e293b'],
-                    borderWidth: 0,
-                    hoverOffset: 4
-                }]
-            },
-            options: { cutout: '82%', plugins: { legend: { display: false } } }
-        });
-
-        // 2. LINE CHART (Performance)
-        const lineCtx = document.getElementById('performanceLine').getContext('2d');
-        let scoreData = [40, 55, 50, 65]; 
-        const perfChart = new Chart(lineCtx, {
-            type: 'line',
-            data: {
-                labels: ['T1', 'T2', 'T3', 'T4'],
-                datasets: [{
-                    label: 'Marks',
-                    data: scoreData,
-                    borderColor: '#22d3ee',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#22d3ee',
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(34, 211, 238, 0.1)'
-                }]
-            },
-            options: { 
-                scales: { 
-                    y: { display: false }, 
-                    x: { ticks: { color: '#64748b' }, grid: { display: false } } 
-                }, 
-                plugins: { legend: { display: false } } 
-            }
-        });
-
-        function addScore() {
-            const score = document.getElementById('newScore').value;
-            if(!score) return;
-            scoreData.push(Number(score));
-            perfChart.data.labels.push('T' + scoreData.length);
-            perfChart.update();
-            document.getElementById('newScore').value = "";
+        function addMock() {
+            const val = document.getElementById('scoreInput').value;
+            if(!val) return;
+            mockScores.push(Number(val));
+            lChart.data.labels.push('T' + (mockScores.length - 1));
+            lChart.update();
+            document.getElementById('scoreInput').value = "";
         }
     </script>
 </body>
 </html>
-
