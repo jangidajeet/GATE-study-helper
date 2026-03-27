@@ -3,94 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJEET ELITE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Ajit GATE EE Pro</title>
     <style>
-        :root { --bg: #020617; --card: #1e293b; --accent: #0ea5e9; --text: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
-        .branding { font-size: 28px; font-weight: 800; color: var(--accent); text-align: center; margin-top: 10px; }
-        .card { background: var(--card); padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        h2 { font-size: 16px; margin: 0 0 15px 0; border-left: 4px solid var(--accent); padding-left: 10px; }
-        
-        /* Subject List */
-        .subject-grid { display: grid; gap: 8px; margin-bottom: 15px; }
-        .subject-row { display: flex; justify-content: space-between; background: #0f172a; padding: 12px; border-radius: 10px; align-items: center; }
-        .chk { width: 22px; height: 22px; cursor: pointer; accent-color: var(--accent); }
-        
-        canvas { width: 100% !important; height: 200px !important; }
-        .btn { background: var(--accent); border: none; padding: 12px; border-radius: 10px; color: white; font-weight: bold; width: 100%; margin-top: 10px; }
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #38bdf8;
+            --text: #f1f5f9;
+            --success: #22c55e;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 20px;
+        }
+        .branding {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .section {
+            background: var(--card);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        h2 { color: var(--accent); border-left: 4px solid var(--accent); padding-left: 10px; }
+        .goal-input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .btn {
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .mock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .mock-table th, .mock-table td {
+            padding: 10px;
+            border: 1px solid #334155;
+            text-align: center;
+        }
+        .subject-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .subject-item {
+            background: #334155;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
 
-    <div class="branding">AJIT ELITE EE 2026</div>
-    <p style="text-align: center; font-size: 12px; opacity: 0.6;">"Hard work beats talent when talent doesn't work hard." ⚡</p>
-
-    <div class="card">
-        <h2>Subject Progress (Bar Chart)</h2>
-        <canvas id="barChart"></canvas>
+    <div class="header">
+        <div class="branding">AJIT GATE EE PRO 2026</div>
+        <p>Precision Tracking for Excellence</p>
     </div>
 
-    <div class="card">
-        <h2>EE Core Subjects</h2>
-        <div class="subject-grid" id="subjectGrid">
-            </div>
+    <div class="section">
+        <h2>Daily Goals</h2>
+        <div style="display:flex; gap:10px;">
+            <input type="text" id="goalInput" class="goal-input" placeholder="Enter today's task...">
+            <button class="btn" onclick="addGoal()">Add</button>
+        </div>
+        <ul id="goalList" style="list-style:none; padding:10px 0;"></ul>
     </div>
 
-    <div class="card">
-        <h2>Mock Performance (Line Diagram)</h2>
-        <canvas id="lineChart"></canvas>
-        <div style="display:flex; gap:5px; margin-top:10px;">
-            <input type="number" id="scoreInput" placeholder="Enter Score" style="flex:1; padding:10px; border-radius:8px; border:none;">
-            <button onclick="addMock()" style="padding:10px 20px; background:var(--accent); border:none; border-radius:8px; color:white; font-weight:bold;">LOG</button>
+    <div class="section">
+        <h2>Syllabus Progress</h2>
+        <div class="subject-grid">
+            <div class="subject-item"><span>Electric Circuits</span> <input type="checkbox"></div>
+            <div class="subject-item"><span>Signals & Systems</span> <input type="checkbox"></div>
+            <div class="subject-item"><span>Electrical Machines</span> <input type="checkbox"></div>
+            <div class="subject-item"><span>Power Systems</span> <input type="checkbox"></div>
+            <div class="subject-item"><span>Control Systems</span> <input type="checkbox"></div>
+            <div class="subject-item"><span>Digital Electronics</span> <input type="checkbox"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Mock Test Tracker</h2>
+        <table class="mock-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Test Name</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+            <tbody id="mockBody">
+                </tbody>
+        </table>
+        <div style="margin-top:10px; display:flex; gap:5px;">
+            <input type="text" id="mockName" placeholder="Test Name" style="width:40%">
+            <input type="number" id="mockScore" placeholder="Score" style="width:20%">
+            <button class="btn" onclick="addMock()">Log</button>
         </div>
     </div>
 
     <script>
-        const subs = ["Circuits", "Machines", "Power Sys", "Signals", "Control", "EMF", "Analog", "Maths"];
-        let status = [0, 0, 0, 0, 0, 0, 0, 0];
-        let mockScores = [0];
-
-        // Load Subject Details
-        const grid = document.getElementById('subjectGrid');
-        subs.forEach((s, i) => {
-            grid.innerHTML += `
-                <div class="subject-row">
-                    <span>${s}</span>
-                    <input type="checkbox" class="chk" onchange="toggleSub(${i})">
-                </div>`;
-        });
-
-        // Initialize Bar Chart
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        const bChart = new Chart(barCtx, {
-            type: 'bar',
-            data: { labels: subs, datasets: [{ label: 'Completed', data: status, backgroundColor: '#0ea5e9' }] },
-            options: { scales: { y: { max: 1, ticks: { display: false } } }, plugins: { legend: { display: false } } }
-        });
-
-        // Initialize Line Diagram
-        const lineCtx = document.getElementById('lineChart').getContext('2d');
-        const lChart = new Chart(lineCtx, {
-            type: 'line',
-            data: { labels: ['Start'], datasets: [{ label: 'Score', data: mockScores, borderColor: '#0ea5e9', tension: 0.4 }] },
-            options: { plugins: { legend: { display: false } } }
-        });
-
-        function toggleSub(i) {
-            status[i] = status[i] === 0 ? 1 : 0;
-            bChart.data.datasets[0].data = status;
-            bChart.update();
+        function addGoal() {
+            const val = document.getElementById('goalInput').value;
+            if(!val) return;
+            const li = document.createElement('li');
+            li.innerHTML = `<input type="checkbox"> ${val}`;
+            li.style.padding = "5px 0";
+            document.getElementById('goalList').appendChild(li);
+            document.getElementById('goalInput').value = "";
         }
 
         function addMock() {
-            const val = document.getElementById('scoreInput').value;
-            if(!val) return;
-            mockScores.push(Number(val));
-            lChart.data.labels.push('T' + (mockScores.length - 1));
-            lChart.update();
-            document.getElementById('scoreInput').value = "";
+            const name = document.getElementById('mockName').value;
+            const score = document.getElementById('mockScore').value;
+            if(!name || !score) return;
+            const row = `<tr><td>${new Date().toLocaleDateString()}</td><td>${name}</td><td>${score}</td></tr>`;
+            document.getElementById('mockBody').innerHTML += row;
+            document.getElementById('mockName').value = "";
+            document.getElementById('mockScore').value = "";
         }
     </script>
 </body>
